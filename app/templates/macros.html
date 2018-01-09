@@ -1,0 +1,25 @@
+{% for user in all_users %}
+<div class="container">
+        <h5><span style="font-weight:bolder">Username:</span>{{user.username}}</h5>
+        {% if user.profile_pic_path %}
+            <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" style="height:400px; width:400px;">
+        {%else%}
+            <p>No profile picture</p>
+        {% endif %}
+</div>
+    
+{% endfor %}
+
+{% macro display_users(list_of_users) %}
+
+    {% for user in list_of_users %}
+        <div class="container">
+            <h5><span style="font-weight:bolder">Username:</span>{{user.username}}</h5>
+            {% if user.profile_pic_path %}
+                <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" style="height:400px; width:400px;">
+            {%else%}
+                <p>No profile picture</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endmacro %}

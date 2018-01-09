@@ -52,3 +52,10 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
+
+@main.route('/view/all/users')
+def all_users():
+    all_users = User.query.all()
+
+    return render_template('view_users.html',all_users = all_users)
+
