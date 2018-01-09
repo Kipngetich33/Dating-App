@@ -5,6 +5,7 @@ class Config:
     General configuration parent class
     '''
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://vincent:Empharse333@localhost/dating'
+    SECRET_KEY="theDifference"
 class TestConfig(Config):
     '''
     Configuration class for the test
