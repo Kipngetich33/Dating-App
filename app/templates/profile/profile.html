@@ -9,6 +9,9 @@
 
     <!--Displaying user bio-->
     {% if user.bio %}
+      <h6>Age :{{user.age}}</h6>
+      <h6>Status :{{user.status}}</h6>
+      <h6>Intrested In:{{user.intrested_in}} </h6>
       <p> {{user.bio}}</p>
     {%else%}
       <p> {{user.username| capitalize}} has no bio </p>
@@ -30,5 +33,6 @@
     <input type="file"  name="photo" class="form-control" required>
     <input type="submit">
     {% endif %}
+    <a href="{{url_for('main.update_profile',uname=current_user.username)}}">Update Profile</a>
 </div>
 {% endblock %}

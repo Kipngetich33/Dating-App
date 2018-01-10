@@ -34,6 +34,9 @@ def update_profile(uname):
 
     if form.validate_on_submit():
         user.bio = form.bio.data
+        user.age= form.age.data
+        user.status= form.status.data
+        user.intrested_in = form.intrested_in.data
 
         db.session.add(user)
         db.session.commit()
@@ -53,9 +56,13 @@ def update_pic(uname):
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
 
-@main.route('/view/all/users')
+@main.route('/view/all/users') 
 def all_users():
-    all_users = User.query.all()
+    all_users = User.query.filter_by(is_available=True).all()
 
     return render_template('view_users.html',all_users = all_users)
 
+@main.route('/view/matches')
+def view_matches():
+
+    return redirect(url_for('main.view_matches'))

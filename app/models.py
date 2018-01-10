@@ -16,7 +16,12 @@ class User(UserMixin,db.Model):
     email = db.Column(db.String(255),unique = True,index = True) 
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
-
+    is_available = db.Column(db.Boolean, unique=False, default=True) 
+    age= db.Column(db.Integer) 
+    status = db.Column(db.String(255))
+    patner = db.Column(db.String(255))
+    intrested_in = db.Column(db.String(255))
+    
     @property
     def password(self):
         raise AttributeError('You cannot read the password attribute')
