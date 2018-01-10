@@ -1,7 +1,94 @@
 {% extends 'base.html'%}
+
+{% block styles%}
+{{ super() }}
+<link href="https://fonts.googleapis.com/css?family=Lobster|shrikhand" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+<script type="text/javascript"> new WOW().init(); </script>
+
+{% endblock %}
+
 {%block content%}
-<div class="container">
-    <a href="{{url_for('main.all_users')}}">Tour</a>
+<style>
+.container{
+  background-color:white;
+  height: 70px;
+  text-align: center;
+}
+.container p {
+  font-size: 45px;
+  font-style: oblique;
+  font-family: 'Lobster', cursive;
+}
+{
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  text-align: center;
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 300px; /* Should be removed. Only for demonstration */
+}
+.column h2{
+  font-family: 'Shrikhand', cursive;
+
+}
+
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+.back{
+  background-image: url(../static/photos/i.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  w
+}
+.back img {
+  height: 700px;
+  width: 400px;
+}
+</style>
+
+
+  <div class="column" style="background-color:white;">
+    <h2>welcome to katiana<br>
+       where you get to meet<br>
+     interesting people online</h2>
+     </div>
+
+  </div>
+  <div class="column" style="background-color:white;height:100%;">
+<div class="back">
+  <img src="../static/photos/ine.jpg" alt="">
+  </div>
 </div>
+
+<div class="column" style="background-color:white;height:100%;">
+<div class="back">
+<img src="../static/photos/r.jpg" alt="">
+</div>
+</div>
+
+<div class="column" style="background-color:white;">
+  <h2>welcome to katiana<br>
+     where you get to meet<br>
+   interesting people online</h2>
+   </div>
+
+</div>
+
+
 
 {% endblock %}

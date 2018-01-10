@@ -2,11 +2,29 @@
 {% import 'bootstrap/wtf.html' as wtf%}
 
 {% block content %}
-<div class="col-md-4"> </div>
+<style>
+body{
+  background-image: url(../static/photos/i.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+background-size: cover;
+height: 500px;
+}
+.container{
+  justify-content: center;
+  height: 80%;
+  color: white;
+  margin-top: 200px;
+  background: linear-gradient(to right, #D61A46, red);
+   /* Standard syntax (must be last) */
+}
+</style>
+<div class="container">
+<div class="col-md-4"></div>
 <div class="col-md-8">
 
   {{wtf.quick_form(registration_form)}}
-
+ </div>
  </div>
 
 {% endblock%}

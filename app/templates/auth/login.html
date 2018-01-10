@@ -1,8 +1,32 @@
 {% extends 'bootstrap/base.html'%}
 {% import 'bootstrap/wtf.html' as wtf%}
+{% block styles%}
+{{ super() }}
+<link href="https://fonts.googleapis.com/css?family=Lobster|shrikhand" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+<script type="text/javascript"> new WOW().init(); </script>
 
+{% endblock %}
 {% block content%}
-
+<style>
+body{
+  background-image: url(../static/photos/i.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+background-size: cover;
+height: 500px;
+}
+.container{
+  justify-content: center;
+  height: 500%;
+  color: white;
+  margin-top: 200px;
+  background: linear-gradient(to right, #D61A46, red); /* Standard syntax (must be last) */
+}
+}
+</style>
+<div class="header wow bounceInDown data-wow-delay="100ms" data-wow-duration="2s"">
 <div class="container">
   <div class="row">
 

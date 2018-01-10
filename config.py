@@ -4,7 +4,7 @@ class Config:
     '''
     General configuration parent class
     '''
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://vincent:Empharse333@localhost/dating'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://david:charles@localhost/dating'
     SECRET_KEY="theDifference"
     UPLOADED_PHOTOS_DEST ='app/static/photos'
 
@@ -29,7 +29,7 @@ class ProdConfig(Config):
         Config: The parent configuration class with General configuration settings
     '''
     pass
-    
+
 class DevConfig(Config):
     '''
     Development  configuration child class
