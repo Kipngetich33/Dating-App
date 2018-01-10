@@ -42,11 +42,9 @@ class User(UserMixin,db.Model):
         match_list=[]
         match_list2=[]
         for match in match3:
-            if match.is_available==True:
-                match_list.append(match)
-        for available in match_list:
-            if available.intrested_in == 'Women':
-                match_list2.append(available)
+            if match.is_available==True and match.intrested_in== 'Women' and match.status == 'Single':
+                match_list2.append(match)
+        
 
         return match_list2 
 

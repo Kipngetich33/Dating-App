@@ -64,6 +64,9 @@ def all_users():
 
 @main.route('/view/matches')
 def view_matches():
-    matches = User.get_match(19) 
-
+    all_matches = User.get_match(19)
+    matches=[]
+    for match in all_matches:
+        if match.username != current_user.username:
+            matches.append(match)
     return render_template('view_matches.html', matches = matches)

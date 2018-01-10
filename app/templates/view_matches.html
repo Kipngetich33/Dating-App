@@ -2,12 +2,14 @@
 {% block content %}
 <div class="container">
     {% for match in matches %}
-    <h6>&nbsp;{{match.username}} &nbsp;&nbsp;&nbsp;&nbsp;{{match.age}}yrs</h6>
-    {% if match.profile_pic_path %}
-    <img src="{{url_for('static',filename=match.profile_pic_path)}}" alt="" class="img-thumbnail">
-    {%else%}
-    <p>No profile picture</p>
-    {% endif %}
+        {% if match.username != current_user.username%}
+            {% if match.profile_pic_path %}
+            <img src="{{url_for('static',filename=match.profile_pic_path)}}" alt="" class="img-thumbnail">
+            {%else%}
+            <p>No profile picture</p> 
+            {% endif %}
+        {% endif %}
+        <h6>&nbsp;{{match.username}} &nbsp;&nbsp;&nbsp;&nbsp;{{match.age}}yrs</h6>
     {% endfor %}
 </div>
 
