@@ -34,9 +34,34 @@ class User(UserMixin,db.Model):
     def verify_password(self,password):
         return check_password_hash(self.pass_secure,password)
 
+    @classmethod
+    def get_match(cls,age): 
+        matches1 = User.query.filter(User.age > age-5).all()
+        matches2 = User.query.filter(User.age <age+5).all()
+        match3 = set(matches1+matches2)
+        match_list=[]
+        match_list2=[]
+        for match in match3:
+            if match.is_available==True:
+                match_list.append(match)
+        for available in match_list:
+            if available.intrested_in == 'Women':
+                match_list2.append(available)
+
+        return match_list2 
+
+    def tear_down(self):
+        User.match_list= []
+        User.match_list2 = []
+
+
+
 
     def __repr__(self):
         return f'User {self.username}'
+    
+
+    
 
 class Role(db.Model):
     __tablename__='roles'

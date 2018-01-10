@@ -56,7 +56,7 @@ def update_pic(uname):
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
 
-@main.route('/view/all/users') 
+@main.route('/view/all/users')                                                                                                                                                       
 def all_users():
     all_users = User.query.filter_by(is_available=True).all()
 
@@ -64,5 +64,6 @@ def all_users():
 
 @main.route('/view/matches')
 def view_matches():
+    matches = User.get_match(19) 
 
-    return redirect(url_for('main.view_matches'))
+    return render_template('view_matches.html', matches = matches)
