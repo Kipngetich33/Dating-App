@@ -92,16 +92,23 @@ class Messages(db.Model):
 
 
 class Proposal(db.Model):
-    __tablename__ = 'proposals'
+    __tablename__ = 'proposals' 
     id = db.Column(db.Integer,primary_key = True)
-    proposing = user_id = db.Column(db.Integer,db.ForeignKey('users.id')) 
+    message = db.Column(db.String(255))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id')) 
 
-    def save_message(self):
+    def save_proposal(self):
         '''
         Function that saves prosal
         '''
         db.session.add(self)
         db.session.commit()
+
+    @classmethod
+    def get_proposals(cls,id):
+        proposals = Proposal.query.filter_by(user_id= id)
+
+        return proposals
 
     def __repr__(self):
         return f'User {self.name}'

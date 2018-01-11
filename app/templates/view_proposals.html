@@ -1,0 +1,7 @@
+{% extends 'base.html'%}
+
+{% block content %}
+{% for proposal in proposals %}
+<h6>{{proposal.message}}</h6>
+{% endfor %}
+{% endblock %} 

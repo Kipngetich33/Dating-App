@@ -92,15 +92,23 @@ def view_messages():
     messages = Messages.get_messages(current_user.id)
     return render_template('view_messages.html',messages = messages)  
 
-@main.route('/proposal')
+@main.route('/proposal/<int:id>', methods = ['GET','POST'])
 @login_required
-def proposal():
-    form = MessageForm()
+def proposal(id):
+    form = ProposalForm()
     if form.validate_on_submit():
         message_body = form.message.data
-        message= Messages(sender= current_user.username ,message =message_body, user_id=id)
-        message.save_message()
+        proposal= Proposal(sender= current_user.username ,message =message_body, user_id=id)
+        proposal.save_proposal() 
 
-        proposal 
+        return redirect(url_for('main.view_matches'))
 
-    return redirect('propose.html')
+    return render_template('propose.html', form = form )
+
+@main.route('/view/proposal')
+@login_required
+def view_proposals():
+    proposals = Proposal.get_proposals(current_user.id)      
+
+    return render_template('view_proposals.html',proposals = proposals)
+

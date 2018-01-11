@@ -36,6 +36,6 @@
     <h6>&nbsp;{{match.username}} &nbsp;&nbsp;&nbsp;&nbsp;{{match.age}}yrs</h6>
     <a href="{{url_for('main.send_messages',id=match.id)}}">Message </a>
     <a href="{{url_for('main.profile',uname=match.username)}}"> View User </h6>
-    <a href="{{url_for('main.send_messages',id=match.id)}}"> Propose </a>
+    <a href="{{url_for('main.proposal',id=match.id)}}"> Propose </a>
 {% endfor %}
 {% endmacro %}
