@@ -1,0 +1,7 @@
+{% extends 'base.html'%}
+{% import 'macros.html' as macro %}
+{% block content %}
+<div class="container">
+    {{ macro.displayMatches(matches,match_username)}}
+</div>
+{% endblock %}
