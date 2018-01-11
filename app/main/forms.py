@@ -13,3 +13,8 @@ class UpdateProfile(FlaskForm):
 class MessageForm(FlaskForm):
     message =  TextAreaField('Your Message',validators = [Required()])
     submit = SubmitField('Send') 
+
+class ProposalForm(FlaskForm):
+    message =  TextAreaField('Your Message',validators = [Required()])
+    submit = SubmitField('Send')
+

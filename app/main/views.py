@@ -14,7 +14,7 @@ def index():
     return render_template('index.html')
 
 
-@main.route('/Profile/<uname>')
+@main.route('/profile/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
 
@@ -91,3 +91,16 @@ def send_messages(id):
 def view_messages():
     messages = Messages.get_messages(current_user.id)
     return render_template('view_messages.html',messages = messages)  
+
+@main.route('/proposal')
+@login_required
+def proposal():
+    form = MessageForm()
+    if form.validate_on_submit():
+        message_body = form.message.data
+        message= Messages(sender= current_user.username ,message =message_body, user_id=id)
+        message.save_message()
+
+        proposal 
+
+    return redirect('propose.html')

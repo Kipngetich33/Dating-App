@@ -22,6 +22,7 @@ class User(UserMixin,db.Model):
     patner = db.Column(db.String(255))
     intrested_in = db.Column(db.String(255))
     message = db.relationship('Messages',backref = 'users',lazy="dynamic")
+    proposal = db.relationship('Proposal',backref = 'users',lazy="dynamic")
     
     @property
     def password(self):
@@ -49,18 +50,10 @@ class User(UserMixin,db.Model):
 
         return match_list2 
 
-    def tear_down(self):
-        User.match_list= []
-        User.match_list2 = []
-
-
-
     def __repr__(self):
         return f'User {self.username}'
-    
 
-    
-
+           
 class Role(db.Model):
     __tablename__='roles'
     id = db.Column(db.Integer,primary_key = True)
@@ -96,3 +89,19 @@ class Messages(db.Model):
 
     def __repr__(self):
         return f'User {self.name}'
+
+
+class Proposal(db.Model):
+    __tablename__ == 'proposals'
+    id = db.Column(db.Integer,primary_key = True)
+    proposing = user_id = db.Column(db.Integer,db.ForeignKey('users.id')) 
+
+    def save_message(self):
+        '''
+        Function that saves prosal
+        '''
+        db.session.add(self)
+        db.session.commit()
+
+    def __repr__(self):
+    return f'User {self.name}'
