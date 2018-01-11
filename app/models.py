@@ -21,6 +21,7 @@ class User(UserMixin,db.Model):
     status = db.Column(db.String(255))
     patner = db.Column(db.String(255))
     intrested_in = db.Column(db.String(255))
+    message = db.relationship('Messages',backref = 'users',lazy="dynamic")
     
     @property
     def password(self):
@@ -54,7 +55,6 @@ class User(UserMixin,db.Model):
 
 
 
-
     def __repr__(self):
         return f'User {self.username}'
     
@@ -66,6 +66,24 @@ class Role(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     name = db.Column(db.String(255))
     users = db.relationship('User',backref = 'role',lazy="dynamic")
+
+    def __repr__(self):
+        return f'User {self.name}'
+
+
+class Messages(db.Model):
+    __tablename__ = 'messages'
+    id = db.Column(db.Integer,primary_key = True)
+    sender = db.Column(db.String(255))
+    message = db.Column(db.String(255)) 
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id')) 
+
+    def save_message(self):
+        '''
+        Function that saves messages
+        '''
+        db.session.add(self)
+        db.session.commit()
 
     def __repr__(self):
         return f'User {self.name}'
