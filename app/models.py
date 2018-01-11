@@ -92,7 +92,7 @@ class Messages(db.Model):
 
 
 class Proposal(db.Model):
-    __tablename__ == 'proposals'
+    __tablename__ = 'proposals'
     id = db.Column(db.Integer,primary_key = True)
     proposing = user_id = db.Column(db.Integer,db.ForeignKey('users.id')) 
 
@@ -104,4 +104,4 @@ class Proposal(db.Model):
         db.session.commit()
 
     def __repr__(self):
-    return f'User {self.name}'
+        return f'User {self.name}'
