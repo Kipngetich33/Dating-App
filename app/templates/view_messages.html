@@ -8,6 +8,8 @@
         
         <p>Message: {{message.message}}</p>
         <h6>Sender:{{message.sender}}</h6>
+        <a href="{{url_for('main.send_messages',id = message.sender_id)}}">Reply</a>
+        
                    
     </div>
     {% endfor %}

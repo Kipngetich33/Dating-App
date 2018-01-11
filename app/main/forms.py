@@ -18,3 +18,6 @@ class ProposalForm(FlaskForm):
     message =  TextAreaField('Your Message',validators = [Required()])
     submit = SubmitField('Propose')
 
+class AcceptProposal(FlaskForm):
+    submit = SubmitField('Accept')
+

@@ -1,9 +1,9 @@
 from flask import render_template, request, redirect, url_for, abort  
 from . import main
-from ..models import User, Messages 
+from ..models import User, Messages, Proposal 
 from flask_login import login_required, current_user
 from .. import db, photos
-from .forms import UpdateProfile, MessageForm
+from .forms import UpdateProfile, MessageForm, ProposalForm, AcceptProposal
 from ..email import mail_message
 
 @main.route('/')
@@ -80,8 +80,9 @@ def send_messages(id):
     form = MessageForm()
     if form.validate_on_submit():
         message_body = form.message.data
-        message= Messages(sender= current_user.username ,message =message_body, user_id=id)
+        message= Messages(sender= current_user.username ,message =message_body, user_id=id, sender_id = current_user.id)
         message.save_message()
+        
 
         
     return render_template('send_message.html',form = form ) 
@@ -92,7 +93,7 @@ def view_messages():
     messages = Messages.get_messages(current_user.id)
     return render_template('view_messages.html',messages = messages)  
 
-@main.route('/proposal/<int:id>', methods = ['GET','POST'])
+@main.route('/proposal/<int:id>', methods = ['GET','POST'])     
 @login_required
 def proposal(id):
     form = ProposalForm()
@@ -105,10 +106,16 @@ def proposal(id):
 
     return render_template('propose.html', form = form )
 
-@main.route('/view/proposal')
+@main.route('/view/proposals',methods= ['GET','POST'])
 @login_required
 def view_proposals():
-    proposals = Proposal.get_proposals(current_user.id)      
+    form = AcceptProposal()
+    proposals = Proposal.get_proposals(current_user.id)
+    if form.validate_on_submit():
+        User.accept_proposal(current_user.username)
+        
 
-    return render_template('view_proposals.html',proposals = proposals)
+        return redirect(url_for('main.index'))
+
+    return render_template('view_proposals.html',proposals = proposals, form = form)
 

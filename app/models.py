@@ -42,13 +42,18 @@ class User(UserMixin,db.Model):
         matches2 = User.query.filter(User.age <age+5).all()
         match3 = set(matches1+matches2)
         match_list=[]
-        match_list2=[]
+        match_list2=[] 
         for match in match3:
             if match.is_available==True and match.intrested_in== 'Women' and match.status == 'Single':
-                match_list2.append(match)
-        
+                match_list2.append(match) 
 
         return match_list2 
+
+    def accept_proposal(cls,username):
+        user = User.query.filter_by(username = username)
+        user.is_available = False
+        db.session.add(user)
+        db.session.commit() 
 
     def __repr__(self):
         return f'User {self.username}'
@@ -69,7 +74,8 @@ class Messages(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     sender = db.Column(db.String(255))
     message = db.Column(db.String(255)) 
-    user_id = db.Column(db.Integer,db.ForeignKey('users.id')) 
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    sender_id = db.Column(db.Integer)
 
     def save_message(self):
         '''
@@ -95,7 +101,8 @@ class Proposal(db.Model):
     __tablename__ = 'proposals' 
     id = db.Column(db.Integer,primary_key = True)
     message = db.Column(db.String(255))
-    user_id = db.Column(db.Integer,db.ForeignKey('users.id')) 
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    sender = db.Column(db.String(255))
 
     def save_proposal(self):
         '''
@@ -106,8 +113,7 @@ class Proposal(db.Model):
 
     @classmethod
     def get_proposals(cls,id):
-        proposals = Proposal.query.filter_by(user_id= id)
-
+        proposals = Proposal.query.filter_by(user_id= id)             
         return proposals
 
     def __repr__(self):
