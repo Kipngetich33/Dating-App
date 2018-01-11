@@ -7,7 +7,7 @@
             <p>No profile picture</p>
         {% endif %}
 </div>
-    
+
 {% endfor %}
 
 {% macro display_users(list_of_users) %}
@@ -22,31 +22,4 @@
             {% endif %}
         </div>
     {% endfor %}
-{% endmacro %}
-
-
-{% macro displayPitchesInCategories(pitches,id)%}
-{% for pitch in pitches %}
-  {% if pitch.category_id==id%}
-      <div class="panel style="style="box-shadow: 5px 5px 5px 5px #f2f2f2; padding:10px;">
-          <p>{{pitch.pitch}}</p>
-          <a href="{{url_for('main.new_comment',id=pitch.id)}}">Add a Comment</a>&nbsp;&nbsp;|
-          <a href="{{url_for('main.view_comments',id=pitch.id)}}">View Comments</a>&nbsp;&nbsp;|
-          <a href="{{url_for('main.new_comment',id=pitch.id)}}">Vote</a>
-      </div>
-  {% endif%}
-{% endfor %}
-{% endmacro%}
-
-{% macro displayMatches(matches,match_username) %}
-{% for match in matches %}
-    {% if match.profile_pic_path %}
-        <img src="{{url_for('static',filename=match.profile_pic_path)}}" alt="" class="img-thumbnail">
-    {%else%}
-        <p>No profile picture</p> 
-    {% endif %}
-    <h6>&nbsp;{{match.username}} &nbsp;&nbsp;&nbsp;&nbsp;{{match.age}}yrs</h6>
-    <a href="{{url_for('main.send_messages',id=match.id)}}">Message </h6> 
-    {{match_username}}
-{% endfor %}
 {% endmacro %}
