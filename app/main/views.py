@@ -1,6 +1,6 @@
-from flask import render_template, request, redirect, url_for, abort  
+from flask import render_template, request, redirect, url_for, abort
 from . import main
-from ..models import User, Messages 
+from ..models import User, Messages
 from flask_login import login_required, current_user
 from .. import db, photos
 from .forms import UpdateProfile, MessageForm
@@ -56,7 +56,7 @@ def update_pic(uname):
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
 
-@main.route('/view/all/users')                                                                                                                                                       
+@main.route('/view/all/users')
 def all_users():
     all_users = User.query.filter_by(is_available=True).all()
 
@@ -70,8 +70,8 @@ def view_matches():
     username =[]
     for match in all_matches:
         if match.username != current_user.username:
-            matches.append(match) 
-    
+            matches.append(match)
+
     return render_template('view_matches.html', matches = matches)
 
 @main.route('/send/message/<int:id>', methods=['GET','POST'])
@@ -83,11 +83,11 @@ def send_messages(id):
         message= Messages(sender= current_user.username ,message =message_body, user_id=id)
         message.save_message()
 
-        
-    return render_template('send_message.html',form = form ) 
+
+    return render_template('send_message.html',form = form )
 
 @main.route('/view/messages')
 @login_required
 def view_messages():
     messages = Messages.get_messages(current_user.id)
-    return render_template('view_messages.html',messages = messages)  
+    return render_template('view_messages.html',messages = messages)

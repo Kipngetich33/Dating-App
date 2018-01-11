@@ -1,3 +1,9 @@
+<style>
+.container{
+    background-color: grey;
+}
+</style>
+
 {% for user in all_users %}
 <div class="container">
         <h5><span style="font-weight:bolder">Username:</span>{{user.username}}</h5>
@@ -13,13 +19,27 @@
 {% macro display_users(list_of_users) %}
 
     {% for user in list_of_users %}
+    <style>
+    .container h5{
+        text-align: center;
+        font-size: 45px;
+        }
+        .container img{
+            border-radius: 100px;
+            float: right;
+        }
+    </style>
         <div class="container">
-            <h5><span style="font-weight:bolder">Username:</span>{{user.username}}</h5>
-            {% if user.profile_pic_path %}
-                <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" style="height:400px; width:400px;">
-            {%else%}
-                <p>No profile picture</p>
-            {% endif %}
-        </div>
-    {% endfor %}
-{% endmacro %}
+            <div class="card" style="width: 20rem;">
+                {% if user.profile_pic_path %}
+                    <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" style="height:400px; width:400px;">
+                {%else%}
+                    <p>No profile picture</p>
+                {% endif %}
+  <div class="card-block">
+      <h5><span style="font-weight:bolder">Username:</span>{{user.username}}</h5>
+      {% endfor %}
+  {% endmacro %}
+  </div>
+</div>
+</div>
