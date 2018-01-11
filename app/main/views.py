@@ -65,7 +65,7 @@ def all_users():
 @main.route('/view/matches')
 @login_required
 def view_matches():
-    all_matches = User.get_match(current_user.age)
+    all_matches = User.get_match(current_user.age,current_user.intrested_in)
     matches=[]
     username =[]
     for match in all_matches:

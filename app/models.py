@@ -37,14 +37,14 @@ class User(UserMixin,db.Model):
         return check_password_hash(self.pass_secure,password)
 
     @classmethod
-    def get_match(cls,age): 
+    def get_match(cls,age,users_intrest): 
         matches1 = User.query.filter(User.age > age-5).all()
         matches2 = User.query.filter(User.age <age+5).all()
         match3 = set(matches1+matches2)
         match_list=[]
         match_list2=[] 
         for match in match3:
-            if match.is_available==True and match.intrested_in== 'Women' and match.status == 'Single':
+            if match.is_available==True and match.intrested_in== users_intrest and match.status == 'Single':
                 match_list2.append(match) 
 
         return match_list2 
