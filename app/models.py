@@ -85,5 +85,14 @@ class Messages(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    @classmethod
+    def get_messages(cls,id):
+        '''
+        Function that get messages for each user
+        '''
+        messages = Messages.query.filter_by(user_id = id).all()
+
+        return messages
+
     def __repr__(self):
         return f'User {self.name}'

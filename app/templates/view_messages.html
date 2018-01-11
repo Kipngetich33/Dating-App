@@ -1,0 +1,17 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<div class= "container">
+    {% for message in messages %}
+    <div class = "panel"> 
+
+        
+        <p>Message: {{message.message}}</p>
+        <h6>Sender:{{message.sender}}</h6>
+                   
+    </div>
+    {% endfor %}
+</div>
+    
+{% endblock %}
+

@@ -84,4 +84,10 @@ def send_messages(id):
         message.save_message()
 
         
-    return render_template('send_message.html',form = form )   
+    return render_template('send_message.html',form = form ) 
+
+@main.route('/view/messages')
+@login_required
+def view_messages():
+    messages = Messages.get_messages(current_user.id)
+    return render_template('view_messages.html',messages = messages)  
