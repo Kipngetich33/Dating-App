@@ -2,10 +2,17 @@
 {% import 'macros.html' as macro %}
 
 {% block content %}
-
-    {{macro.display_users(all_users)}}
-{% endblock %}
 <style>
-img{
-  border-radius: 50%;
+.users img{
+ height: 50%;
+ width: 50%;
 }
+
+.users {
+  font-family: cursive;
+}
+</style>
+<div class="users">
+  {{macro.display_users(all_users)}}
+  </div>
+{% endblock %}

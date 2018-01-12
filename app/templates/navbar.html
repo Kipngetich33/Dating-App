@@ -1,10 +1,12 @@
+{% import 'bootstrap/wtf.html' as wtf %}
+
 <style>
 .navbar-brand{
   background-color: white;
   text-align: justify;
   color: black;
 }
-.navbar-brand p{
+.navbar-brand p {
   color:black;
   font-size:30px;
   font-family: 'Lobster', cursive;
@@ -27,10 +29,9 @@
   padding: 10px;/* Standard syntax (must be last) */
   justify-content: center;
   color: white;
-
 }
-
 </style>
+
 <div class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -49,17 +50,25 @@
         <p>Signup, login and match.</p>
         <hr>
         </div>
-        </div>
+
+        <!-- Modal -->
+
+
+
+
+
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                {% if current_user.is_authenticated %}
-              <button type="button"  <li><a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li></button>
-              <button type="button"> <span><a href="{{url_for('auth.logout')}}">log out</a></li></span</button>
-                {% else %}
-                <button type="button" class="btn btn-danger"<li><a href="{{url_for('auth.login')}}">Log In</a></button>
-                {%endif%}
+              <a href="{{url_for('main.index')}}"class="btn btn-primary">Home</a>
+
+
             </ul>
         </div>
+      </div>
+
+
+      </div>
+
 
     </div>
 </div>
