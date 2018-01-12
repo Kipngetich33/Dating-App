@@ -29,6 +29,8 @@ class DitchPatner(FlaskForm):
 class RegistrationForm(FlaskForm):
     email = StringField('Your Email Address',validators=[Required(),Email()])
     username = StringField('Enter your username',validators = [Required()])
+    intrested_in = SelectField('Intrested In', choices=[('Women', 'Women'),('Men','Men'),('Both','Both')],validators = [Required()])
+    age = IntegerField('Age',validators = [Required()])
     password = PasswordField('Password',validators = [Required(),
     EqualTo('password_confirm',message = 'Passwords must match')])
     password_confirm = PasswordField('Confirm Passwords',validators = [Required()])
