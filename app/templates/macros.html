@@ -1,43 +1,68 @@
 <style>
   .gio img{
-    border-radius:20px;
+    border-radius:50px;
+    text-align: center;
+   }
 
-    }
-.container h5{
-  text-align: right;
-  font-size: 45px;
-}
+ .users{
+  width: 500px;
+    padding: 20px;
+    border: 5px solid black;
+    margin: 0;
+  }
 </style>
-{% macro display_users(list_of_users) %}
-  <div class="container">
-    <div class="col-md-4">
-      {% for user in all_users %}
-          <h5><span style="font-weight:bolder">Username:</span>{{user.username}}</h5>
-          {% if user.profile_pic_path %}
-              <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" style="height:400px; width:400px;">
-          {%else%}
-              <p>No profile picture</p>
-          {% endif %}
-          <a href="{{url_for('main.send_messages',id=user.id)}}">Message </h6>
-        {% endfor %}
-    </div>
-  </div>
-{% endmacro %}
 
-{% macro displayMatches(matches,match_username) %}
-  {% for match in matches %}
-      {% if match.profile_pic_path %}
-        <div class="container">
-          <div class="col-md-4">
-        <img src="{{url_for('static',filename=match.profile_pic_path)}}" alt="" style="border-radius:500px; height:100px;">
+
+{% for user in all_users %}
+
+        <h5><span style="font-weight:bolder">Username:</span>{{user.username}}</h5>
+        {% if user.profile_pic_path %}
+            <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" style="height:600px; width:700px;" "width: 500px;"
+                "padding: 20px;"
+                "border: 5px solid black;"
+                "margin: 0;">
+        {%else%}
+            <p>No profile picture</p>
+        {% endif %}
+</div>
+{% endfor %}
+
+{% macro display_users(list_of_users) %}
+
+    {% for user in list_of_users %}
+  <div class="users">
+
+
+      <h5><span style="font-weight:bolder">Username:</span>{{user.username}}</h5>
+      {% if user.profile_pic_path %}
+      <div class="gio">
+          <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" style="height:90px; width:90px; border-radius:20px;">
+        </div>
+      </div>
       {%else%}
           <p>No profile picture</p>
       {% endif %}
-      <h6>&nbsp;{{match.username}} &nbsp;&nbsp;&nbsp;&nbsp;{{match.age}}yrs</h6>
-      <a href="{{url_for('main.send_messages',id=match.id)}}"class="btn btn-danger">Message </a>
-      <a href="{{url_for('main.profile',uname=match.username)}}"class="btn btn-danger"> View User </h6>
-      <a href="{{url_for('main.send_messages',id=match.id)}}"class="btn btn-danger"> Propose </a>
-    </div>
-  </div>
-  {% endfor %}
+      <a href="{{url_for('main.send_messages',id=user.id)}}">Message </h6>
+      {% endfor %}
+
+  {% endmacro %}
+
+
+
+{% macro displayMatches(matches,match_username) %}
+{% for match in matches %}
+    {% if match.profile_pic_path %}
+
+
+  <img src="{{url_for('static',filename=match.profile_pic_path)}}" alt="" style="border-radius:500px; height:100px;">
+
+    {%else%}
+        <p>No profile picture</p>
+    {% endif %}
+    <h6>&nbsp;{{match.username}} &nbsp;&nbsp;&nbsp;&nbsp;{{match.age}}yrs</h6>
+    <a href="{{url_for('main.send_messages',id=match.id)}}"class="btn btn-danger">Message </a>
+    <a href="{{url_for('main.profile',uname=match.username)}}"class="btn btn-danger"> View User </h6>
+    <a href="{{url_for('main.send_messages',id=match.id)}}"class="btn btn-danger"> Propose </a>
+
+{% endfor %}
 {% endmacro %}
