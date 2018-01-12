@@ -2,10 +2,7 @@
 {% import 'macros.html' as macro %}
 {% block content %}
 <div class="container">
-    {{%if matches %}}
     {{ macro.displayMatches(matches,match_username)}}
-    {{%else%}}
-    <h6>Please Update your Profile to find matches easily</h6>
-    {{% endif %}}
+    <h6>Please Update your Profile more Matches</h6>
 </div>
 {% endblock %}
