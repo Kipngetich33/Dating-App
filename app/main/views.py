@@ -1,17 +1,28 @@
-from flask import render_template, request, redirect, url_for, abort  
+from flask import render_template, request, redirect, url_for, abort
 from . import main
 from ..models import User, Messages, Proposal 
 from flask_login import login_required, current_user
 from .. import db, photos
 from .forms import UpdateProfile, MessageForm, ProposalForm, AcceptProposal, DitchPatner
 from ..email import mail_message
+from .forms import RegistrationForm, LoginForm
+from flask_login import login_user,logout_user,login_required,current_user
 
-@main.route('/')
+
+@main.route('/', methods =['GET','POST'])
 def index():
     '''
     View function that returns the index template and its data
     '''
-    return render_template('index.html')
+    login_form = LoginForm()
+    if login_form.validate_on_submit():
+        user = User.query.filter_by(email = login_form.email.data).first()
+        if user is not None and user.verify_password(login_form.password.data):
+            login_user(user,login_form.remember.data)
+            return redirect(request.args.get('next') or url_for('main.index'))
+
+        flash('Invalid username or Password')
+    return render_template('index.html', login_form = login_form )
 
 
 @main.route('/profile/<uname>')
@@ -56,7 +67,7 @@ def update_pic(uname):
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
 
-@main.route('/view/all/users')                                                                                                                                                       
+@main.route('/view/all/users')
 def all_users():
     all_users = User.query.filter_by(is_available=True).all()
 
@@ -70,8 +81,8 @@ def view_matches():
     username =[]
     for match in all_matches:
         if match.username != current_user.username:
-            matches.append(match) 
-    
+            matches.append(match)
+
     return render_template('view_matches.html', matches = matches)
 
 @main.route('/send/message/<int:id>', methods=['GET','POST'])
@@ -84,14 +95,15 @@ def send_messages(id):
         message.save_message()
         
 
-        
-    return render_template('send_message.html',form = form ) 
+
+    return render_template('send_message.html',form = form )
 
 @main.route('/view/messages')
 @login_required
 def view_messages():
     messages = Messages.get_messages(current_user.id)
-    return render_template('view_messages.html',messages = messages)  
+    return render_template('view_messages.html',messages = messages)
+    return render_template('view_messages.html',messages = messages)
 
 @main.route('/proposal/<int:id>', methods = ['GET','POST'])     
 @login_required

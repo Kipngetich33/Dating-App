@@ -1,25 +1,49 @@
 {% extends 'base.html'%}
+{% block styles%}
+{{ super() }}
+<link href="https://fonts.googleapis.com/css?family=Lobster|shrikhand" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+<script type="text/javascript"> new WOW().init(); </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+{% endblock %}
 {% block content %}
+<style>
+
+.profilepic img{
+  width: 320px;
+    padding: 10px;
+    border: 5px solid black;
+    margin: 0;
+}
+.name{
+  width: 500px;
+    padding: 20px;
+    border: 5px solid black;
+    margin: 0;
+}
+.projo p{
+  font-family: 'Lobster', cursive;
+font-size: 30px;
+}
+.container{
+  justify-content: center;
+}
+</style>
+<div class="username">
 <div class="container">
 <div class="row">
+
 <!-- displaying  Username-->
   <div class="col-md-4">
-    <h3> {{user.username| capitalize}} </h3>
+    <div class="projo">
 
-    <!--Displaying user bio-->
-    {% if user.bio %}
-      <h6>Age :{{user.age}}</h6>
-      <h6>Status :{{user.status}}</h6>
-      <h6>Intrested In:{{user.intrested_in}} </h6>
-      <p> {{user.bio}}</p>
-    {%else%}
-      <p> {{user.username| capitalize}} has no bio </p>
-    {% endif %}
-  </div>
 
   <!--Display profile photo-->
-  <div class="col-md-4">
+
+    <div class="profilepic">
 
     {% if user.profile_pic_path %}
     <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail">
@@ -27,12 +51,25 @@
     <p>No profile picture</p>
     {% endif %} 
   </div>
+  <div class="name">
+<p>username: {{user.username| capitalize}} </p>
+
+<!--Displaying user bio-->
+{% if user.bio %}
+  <p>bio: {{user.bio}}</p>
+{%else%}
+  <p> {{user.username| capitalize}} has no bio </p>
+{% endif %}
 </div>
+
+
     {% if user == current_user %}
-    <form  action="{{url_for('main.update_pic',uname=user.username)}}" method="post" enctype = "multipart/form-data">
+    <form style="width:400px;"  action="{{url_for('main.update_pic',uname=user.username)}}" method="post" enctype = "multipart/form-data">
     <input type="file"  name="photo" class="form-control" required>
-    <input type="submit">
+    <input class="btn btn-primary" type="submit">
+    <a href = {{url_for('main.update_profile',uname = current_user.username)}} class="btn btn-primary">Update Profile</a>
     {% endif %}
-    <a href="{{url_for('main.update_profile',uname=current_user.username)}}">Update Profile</a>
+  </div>
+</div>
 </div>
 {% endblock %}

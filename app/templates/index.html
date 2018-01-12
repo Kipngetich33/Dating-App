@@ -1,4 +1,6 @@
 {% extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf %}
+
 
 {% block styles%}
 {{ super() }}
@@ -6,6 +8,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
 <script type="text/javascript"> new WOW().init(); </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 {% endblock %}
 
@@ -42,9 +46,13 @@ body {
 }
 .column h2{
   font-family: 'Shrikhand', cursive;
-  margin-top: 300px;
+  margin-top: 200px;
   font-size: 50px;
 
+}
+
+.column btn btn-primary{
+  margin-bottom: 500px;
 }
 
 
@@ -75,12 +83,105 @@ body {
   color: pink;
 }
 .rules{
-  background-image: url(../static/photos/u.jpeg);
+  background-image: url(../static/photos/o.jpeg);
   background-repeat: no-repeat;
   background-size: cover;
   height: 800px;
 }
+
+.rules h2{
+  text-align: right;
+  margin-right: 300px;
+  margin-top: 300px;
+  font-family: 'Lobster', cursive;
+  color: white;
+  font-size: 45px;
+}
+
+
+
+.image h2 {
+   position: absolute;
+   top: 200px;
+   left: 0;
+   width: 100%;
+   color: white;
+}
+
+
+.image img {
+   position: relative;
+   width: 100%; /* for IE 6 */
+}
+
+.image h2 span {
+   color: white;
+   font: bold 24px/45px Helvetica, Sans-Serif;
+   letter-spacing: -1px;
+   background: rgb(0, 0, 0); /* fallback color */
+   background: rgba(0, 0, 0, 0.7);
+   padding: 10px;
+}
+.sign  {
+  text-align: right;
+  margin-right: 400px;
+  margin-top: 80px;
+
+
+}
 </style>
+
+<div class="rules">
+   <div class="col-md-12">
+     <h2>Tired of searching<br>
+       for a soulmate? <br>
+     katiana is here for you!</h2>
+
+
+
+
+
+
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">welcome user</h4>
+          </div>
+          <div class="modal-body">
+            {{wtf.quick_form(login_form)}}
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+
+</div>
+<div class="sign">
+  <div class="header wow rollIn data-wow-delay="100ms" data-wow-duration="6s"">
+{% if current_user.is_authenticated %}
+<a href="{{url_for('main.profile',uname=current_user.username)}}"class="btn btn-primary">Profile</a></li></button>
+<a href="{{url_for('auth.logout')}}"class="btn btn-primary">logut</a>
+{% else %}
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">login</button>
+
+{%endif%}
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+<div class="column" style="background-color:white;">
 
 
   <div class="column" style="background-color:white;">
@@ -91,6 +192,12 @@ body {
     <h2>welcome to katiana<br>
        where you get to meet<br>
      interesting people online</h2>
+     <a href="{{url_for('main.all_users')}}"class="btn btn-primary">View All Users</a>
+     {% if current_user.is_authenticated %}
+    <a href="{{url_for('main.view_matches')}}"class="btn btn-primary">View Matches</a>
+
+     {%endif%}
+
      </div>
 
 
@@ -126,21 +233,16 @@ body {
 </div>
 
 
+
 <div class="row">
 <div class="column" style="background-color:white;">
   <h2>sign up so that you can <br>
     have access to meet the real men <br>
-    hurry while stock last!!
-   </h2>
- </div>
+    hurry while stock last!!<br>
+    <a href="{{url_for('auth.register')}}"class="btn btn-primary">sign up</a>
 
 
-   </div>
-<div class="rules">
-   <div class="col-md-12">
-     <h2>someone needs to <br>
-       match with you so<br>
-       that you can talk</h2>
- </div>
- </div>
+      <!-- Trigger the modal with a button -->
+
+
 {% endblock %}
