@@ -3,7 +3,7 @@ from . import main
 from ..models import User, Messages, Proposal 
 from flask_login import login_required, current_user
 from .. import db, photos
-from .forms import UpdateProfile, MessageForm, ProposalForm, AcceptProposal
+from .forms import UpdateProfile, MessageForm, ProposalForm, AcceptProposal, DitchPatner
 from ..email import mail_message
 
 @main.route('/')
@@ -110,12 +110,21 @@ def proposal(id):
 @login_required
 def view_proposals():
     form = AcceptProposal()
+    ditch_form = DitchPatner()
     proposals = Proposal.get_proposals(current_user.id)
     if form.validate_on_submit():
-        User.accept_proposal(current_user.username)
-        
-
+        if form.proposal_results.data == 'Accept':
+            User.accept_proposal(current_user.username)
+            Proposal.seen_proposals(current_user.id)
+        else:
+            User.reject_proposal(current_user.username)
+            Proposal.seen_proposals(current_user.id)
+            Proposal.seen_proposals(current_user.id)
+            return redirect(url_for('main.index'))
+    
+    if ditch_form.validate_on_submit():
+        User.reject_proposal(current_user.username)
         return redirect(url_for('main.index'))
 
-    return render_template('view_proposals.html',proposals = proposals, form = form)
+    return render_template('view_proposals.html',proposals = proposals, form = form, ditch_form = ditch_form)
 

@@ -19,5 +19,9 @@ class ProposalForm(FlaskForm):
     submit = SubmitField('Propose')
 
 class AcceptProposal(FlaskForm):
-    submit = SubmitField('Accept')
+    proposal_results = RadioField('Accept or Reject', choices=[('Accept', 'Accept'), ('Reject', 'Reject')],validators = [Required()])
+    submit = SubmitField('Submit')
+
+class DitchPatner(FlaskForm):
+    submit = SubmitField('Ditch Patner')
 

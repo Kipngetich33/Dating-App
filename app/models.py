@@ -48,12 +48,20 @@ class User(UserMixin,db.Model):
                 match_list2.append(match) 
 
         return match_list2 
-
+    @classmethod
     def accept_proposal(cls,username):
-        user = User.query.filter_by(username = username)
+        user = User.query.filter_by(username = username).first()
         user.is_available = False
         db.session.add(user)
+        db.session.commit()
+
+    @classmethod
+    def reject_proposal(cls,username):
+        user = User.query.filter_by(username = username).first()
+        user.is_available = True
+        db.session.add(user)
         db.session.commit() 
+
 
     def __repr__(self):
         return f'User {self.username}'
@@ -103,6 +111,8 @@ class Proposal(db.Model):
     message = db.Column(db.String(255))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     sender = db.Column(db.String(255))
+    is_seen = db.Column(db.Boolean, unique=False, default=False)
+    
 
     def save_proposal(self):
         '''
@@ -115,6 +125,21 @@ class Proposal(db.Model):
     def get_proposals(cls,id):
         proposals = Proposal.query.filter_by(user_id= id)             
         return proposals
+    
+    @classmethod
+    def seen_proposals(cls,id): 
+        '''
+        Function that clears proposals once they are seen
+        '''
+
+        proposal = Proposal.query.filter_by(user_id = id).first()
+        proposal.is_seen = True
+        db.session.add(proposal)
+        db.session.commit() 
+
+    
+        
+
 
     def __repr__(self):
         return f'User {self.name}'

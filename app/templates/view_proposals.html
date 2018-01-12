@@ -3,12 +3,19 @@
 
 {% block content %}
 <div class="container">
+        <h6>Proposals</h6>  
+        <hr/>
     {% for proposal in proposals %}
-    <div class="panel">
+        {% if proposal.is_seen == False %}
+        <div class="panel">
             <h6>{{proposal.message}}</h6>
             {{ wtf.quick_form(form) }}
-    </div>
+        </div>
+        {% endif %}
     {% endfor %}
+    {% if current_user.is_available == False %}
+        {{wtf.quick_form(ditch_form)}}          
+    {% endif %}
 
 </div>
 {% endblock %} 
